@@ -1,0 +1,54 @@
+<% layout('layouts/boilerplate') %>
+<link rel="stylesheet" href="/stylesheets/index.css" />
+<div class="my-5" id="cluster-map"></div>
+<h1 class="text-center my-5 text-white">All Campgrounds</h1>
+<div id="campgrounds-container">
+	<% campgrounds.forEach(campground => { %>
+	<div
+		class="container mx-auto card shadow row flex-row mb-4 py-3 rounded-4 bg-white bg-opacity-50 justify-content-center"
+	>
+		<div class="col-lg-4 d-flex justify-content-center">
+			<% if(campground.images.length) {%>
+			<img
+				crossorigin="anonymous"
+				class="mx-auto img-idx rounded-circle"
+				src="<%= campground.images[0].url %>"
+				alt=""
+			/>
+			<% }else{ %>
+			<img
+				crossorigin="anonymous"
+				class="img-idx"
+				src="https://res.cloudinary.com/dxce9qhat/image/upload/v1689612983/YelpCamp/wsowzgvu4in3admhe1hg.jpg"
+				alt=""
+			/>
+			<% } %>
+		</div>
+		<div class="col-lg-8">
+			<div class="card-body">
+				<h3 class="card-title fw-bold"><%= campground.title %></h3>
+				<p class="card-text fs-6 fw-bold"><%= campground.description %></p>
+				<p class="card-text">
+					<small class="text fw-bold"><%= campground.location %></small>
+				</p>
+				<a
+					class="btn btn-primary camp-btn"
+					href="/campgrounds/<%= campground._id %>"
+					>Visit <%= campground.title %></a
+				>
+			</div>
+		</div>
+	</div>
+	<% }) %>
+</div>
+<div id="loading-indicator" style="display: none" class="my-5">
+	<h3 class="text-white text-center py-3">Loading...</h3>
+	<div class="loading-spinner"></div>
+</div>
+<script>
+	const mapToken = "<%-process.env.MAPBOX_TOKEN%>";
+	const campgrounds = {features: <%-JSON.stringify(campgrounds)%>}
+</script>
+
+<script src="/js/idxScroll.js"></script>
+<script src="/js/clusterMap.js"></script>

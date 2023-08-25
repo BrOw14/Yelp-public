@@ -1,0 +1,20 @@
+body {
+	height: max-content;
+	background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+		url("https://res.cloudinary.com/dxce9qhat/image/upload/v1692502769/Images/asd6qwumpqtkfqqy8tui.jpg")
+			no-repeat fixed;
+	background-size: cover;
+	background-position: center;
+}
+
+img {
+	width: 500px;
+	height: 500px;
+}
+
+@media screen and (max-width: 576px) {
+	img {
+		width: 250px;
+		height: 250px;
+	}
+}
