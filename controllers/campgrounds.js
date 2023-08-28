@@ -22,9 +22,7 @@ module.exports.index = async (req, res) => {
 
 	const totalPages = Math.ceil(totalCampgrounds / pageSize);
 
-	const campgrounds = await Campground.find({})
-		.skip(startIndex)
-		.limit(pageSize);
+	const campgrounds = await Campground.find({});
 
 	res.render("campgrounds/index", { campgrounds, totalPages });
 };

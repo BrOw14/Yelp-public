@@ -1,20 +1,20 @@
-campground = campgrounds.features;
-
 let page = 2;
 let isLoading = false;
+let allCampgroundsLoaded = false;
 
 const campgroundsContainer = document.getElementById("campgrounds-container");
 const loadingIndicator = document.getElementById("loading-indicator");
 
 loadMoreCampgrounds = () => {
-	if (isLoading) return;
+	if (isLoading || allCampgroundsLoaded) return;
 	isLoading = true;
 
 	fetch(`/load-more?page=${page}`)
 		.then((res) => res.json())
 		.then((data) => {
 			if (data.length > 0) {
-				data.forEach((campground) => {
+				const campgroundsToAdd = data.slice(0, 3);
+				campgroundsToAdd.forEach((campground) => {
 					const newCampgroundDiv = document.createElement("div");
 					newCampgroundDiv.id = "camp-card";
 					newCampgroundDiv.classList.add(
@@ -69,18 +69,23 @@ loadMoreCampgrounds = () => {
 					campgroundsContainer.appendChild(newCampgroundDiv);
 				});
 				page++;
+			} else {
+				allCampgroundsLoaded = true;
 			}
 			isLoading = false;
 			loadingIndicator.style.display = "none";
 		});
 };
 
+let scrollTimeout;
+
 window.addEventListener("scroll", () => {
+	clearTimeout(scrollTimeout);
 	const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
-	if (scrollTop + clientHeight >= scrollHeight - 100) {
+	if (!allCampgroundsLoaded && scrollTop + clientHeight >= scrollHeight - 100) {
 		loadingIndicator.style.display = "block";
-		setTimeout(() => {
+		scrollTimeout = setTimeout(() => {
 			loadMoreCampgrounds();
-		}, 1500);
+		}, 500);
 	}
 });

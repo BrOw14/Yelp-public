@@ -3,16 +3,16 @@
 <div class="my-5" id="cluster-map"></div>
 <h1 class="text-center my-5 text-white">All Campgrounds</h1>
 <div id="campgrounds-container">
-	<% campgrounds.forEach(campground => { %>
+	<% for(let i=0; i < 3; i++){ %>
 	<div
 		class="container mx-auto card shadow row flex-row mb-4 py-3 rounded-4 bg-white bg-opacity-50 justify-content-center"
 	>
 		<div class="col-lg-4 d-flex justify-content-center">
-			<% if(campground.images.length) {%>
+			<% if(campgrounds[i].images.length) {%>
 			<img
 				crossorigin="anonymous"
 				class="mx-auto img-idx rounded-circle"
-				src="<%= campground.images[0].url %>"
+				src="<%= campgrounds[i].images[0].url %>"
 				alt=""
 			/>
 			<% }else{ %>
@@ -26,20 +26,20 @@
 		</div>
 		<div class="col-lg-8">
 			<div class="card-body">
-				<h3 class="card-title fw-bold"><%= campground.title %></h3>
-				<p class="card-text fs-6 fw-bold"><%= campground.description %></p>
+				<h3 class="card-title fw-bold"><%= campgrounds[i].title %></h3>
+				<p class="card-text fs-6 fw-bold"><%= campgrounds[i].description %></p>
 				<p class="card-text">
-					<small class="text fw-bold"><%= campground.location %></small>
+					<small class="text fw-bold"><%= campgrounds[i].location %></small>
 				</p>
 				<a
 					class="btn btn-primary camp-btn"
-					href="/campgrounds/<%= campground._id %>"
-					>Visit <%= campground.title %></a
+					href="/campgrounds/<%= campgrounds[i]._id %>"
+					>Visit <%= campgrounds[i].title %></a
 				>
 			</div>
 		</div>
 	</div>
-	<% }) %>
+	<% } %>
 </div>
 <div id="loading-indicator" style="display: none" class="my-5">
 	<h3 class="text-white text-center py-3">Loading...</h3>
