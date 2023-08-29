@@ -1,14 +1,15 @@
 <% layout('layouts/boilerplate') %>
+<link rel="stylesheet" href="/stylesheets/new.css" />
 <div class="row">
-	<h1 class="text-center">New Campground</h1>
+	<h1 class="text-center my-5">New Campground</h1>
 	<div class="col-md-6 offset-md-3">
-		<div class="card shadow">
+		<div class="card shadow bg-white bg-opacity-50">
 			<div class="card-body">
 				<form
 					action="/campgrounds"
 					method="POST"
 					novalidate
-					class="validated-form"
+					class="validated-form text-black"
 					enctype="multipart/form-data"
 				>
 					<div class="mb-3">
@@ -80,7 +81,7 @@
 						<button class="btn btn-success">Add Campground</button>
 					</div>
 				</form>
-				<a href="/campgrounds">Cancel</a>
+				<a class="btn btn-info" href="/campgrounds">Cancel</a>
 			</div>
 		</div>
 	</div>
