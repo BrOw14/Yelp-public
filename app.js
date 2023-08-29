@@ -30,6 +30,7 @@ const campgroundsRoutes = require("./routes/campgrounds.js");
 const reviewsRoutes = require("./routes/reviews.js");
 
 const loadMore = require("./routes/loadmore.js");
+const { storeReturnTo } = require("./middleware");
 
 mongoose.set("strictQuery", true);
 //mongodb://127.0.0.1:27017/yelp-camp
@@ -149,6 +150,8 @@ app.use((req, res, next) => {
 	res.locals.error = req.flash("error");
 	next();
 });
+
+app.use(storeReturnTo);
 
 app.get("/fakeUser", async (req, res) => {
 	const user = new User({
