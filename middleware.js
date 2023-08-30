@@ -17,6 +17,7 @@ const ignorePaths = {
 	"/login": true,
 	"/register": true,
 	"/logout": true,
+	"/load-more": true,
 };
 
 module.exports.storeReturnTo = (req, res, next) => {
