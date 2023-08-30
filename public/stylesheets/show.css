@@ -7,6 +7,11 @@ body {
 	background-position: center;
 }
 
+.camp-show {
+	padding-left: 0;
+	padding-right: 0;
+}
+
 img {
 	width: 500px;
 	height: 500px;
@@ -16,5 +21,9 @@ img {
 	img {
 		width: 250px;
 		height: 250px;
+	}
+	.camp-show {
+		padding-right: calc(var(--bs-gutter-x) * 0.5);
+		padding-left: calc(var(--bs-gutter-x) * 0.5);
 	}
 }
