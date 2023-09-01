@@ -12,7 +12,6 @@ module.exports.isLoggedIn = (req, res, next) => {
 	next();
 };
 
-let previousUrl = "";
 const ignorePaths = {
 	"/login": true,
 	"/register": true,
@@ -20,13 +19,20 @@ const ignorePaths = {
 	"/load-more": true,
 };
 
+// Middleware storeReturnTo
 module.exports.storeReturnTo = (req, res, next) => {
+	// Almacena la URL previa en la sesión del usuario
 	if (!ignorePaths[req.originalUrl]) {
-		previousUrl = req.originalUrl;
+		req.session.previousUrl = req.originalUrl;
 	}
+
+	// Recupera la URL previa de la sesión del usuario
+	const previousUrl = req.session.previousUrl || "";
+
 	console.log("original path", req.originalUrl);
 	console.log("previous URL", previousUrl);
 
+	// Establece la URL previa en res.locals para que esté disponible en las vistas
 	res.locals.returnTo = previousUrl;
 	next();
 };
