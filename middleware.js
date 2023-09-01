@@ -24,6 +24,8 @@ module.exports.storeReturnTo = (req, res, next) => {
 	if (!ignorePaths[req.originalUrl]) {
 		previousUrl = req.originalUrl;
 	}
+	console.log("original path", req.originalUrl);
+	console.log("previous URL", previousUrl);
 
 	res.locals.returnTo = previousUrl;
 	next();
