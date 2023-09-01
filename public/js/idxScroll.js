@@ -86,6 +86,6 @@ window.addEventListener("scroll", () => {
 		loadingIndicator.style.display = "block";
 		scrollTimeout = setTimeout(() => {
 			loadMoreCampgrounds();
-		}, 500);
+		}, 300);
 	}
 });

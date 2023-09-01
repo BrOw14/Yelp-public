@@ -1,0 +1,6 @@
+body {
+	background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+		url("https://res.cloudinary.com/dxce9qhat/image/upload/f_auto,q_auto/v1/Images/q6evvq8q8f7ppblekpvd");
+	background-size: cover;
+	background-position: center;
+}

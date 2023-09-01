@@ -2,8 +2,8 @@
 <link rel="stylesheet" href="/stylesheets/stars.css" />
 <link rel="stylesheet" href="/stylesheets/show.css" />
 
-<div class="row mt-5 justify-content-md-around">
-	<div class="col-md-5 mb-3">
+<div class="row mt-5 justify-content-md-between">
+	<div class="col-md-5 mb-3 camp-show">
 		<div id="campgroundCarousel" class="carousel slide carousel-fade">
 			<div class="carousel-inner">
 				<% campground.images.forEach((img, i) =>{ %>
@@ -55,19 +55,68 @@
 				<li class="list-group-item">$<%= campground.price %>/night</li>
 			</ul>
 			<% if(currentUser && campground.author.equals(currentUser._id)){ %>
-			<div class="card-body">
+			<div
+				class="card-body d-flex justify-content-around justify-content-md-between"
+			>
 				<a
 					href="/campgrounds/<%= campground._id %>/edit"
 					class="card-link btn btn-primary"
 					>Edit Campground</a
 				>
-				<form
-					class="d-inline"
-					action="/campgrounds/<%= campground._id %>?_method=DELETE"
-					method="POST"
+				<!-- Button trigger modal -->
+				<button
+					type="button"
+					class="btn btn-danger card-link"
+					data-bs-toggle="modal"
+					data-bs-target="#delete-camp"
 				>
-					<button class="btn btn-danger">Delete Campground</button>
-				</form>
+					Delete Campground
+				</button>
+
+				<!-- Modal -->
+				<div
+					class="modal fade"
+					id="delete-camp"
+					tabindex="-1"
+					aria-labelledby="exampleModalLabel"
+					aria-hidden="true"
+				>
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h1 class="modal-title fs-5" id="exampleModalLabel">
+									Delete Campground
+								</h1>
+								<button
+									type="button"
+									class="btn-close"
+									data-bs-dismiss="modal"
+									aria-label="Close"
+								></button>
+							</div>
+							<div class="modal-body">
+								Are you sure you want to delete this campground?
+							</div>
+							<div class="modal-footer">
+								<button
+									type="button"
+									class="btn btn-secondary"
+									data-bs-dismiss="modal"
+								>
+									Cancel
+								</button>
+								<form
+									class="card-link"
+									action="/campgrounds/<%= campground._id %>?_method=DELETE"
+									method="POST"
+									id="delete-form"
+								>
+									<button class="btn btn-danger">Confirm</button>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 			<% } %>
 			<div class="card-footer text-end">
@@ -175,25 +224,73 @@
 		</div>
 	</div>
 </div>
-<div class="row justify-content-center justify-content-md-around">
+<div class="row justify-content-center justify-content-md-between">
 	<%campground.reviews.forEach(review =>{%>
 	<div class="card mb-3 col-10 col-md-5">
 		<div class="card-body">
 			<h4 class="card-subtitle mb-2 text-muted fw-bold">
-				<%= review.author.username %>
+				<%= review.author.username.replace(/^\w/, c => c.toUpperCase()) %>
 			</h4>
 			<p class="starability-result" data-rating="<%= review.rating  %>">
 				Rated: <%= review.rating %> stars
 			</p>
 
-			<p class="card-text fs-4"><%=review.body%></p>
+			<p class="card-text"><%=review.body%></p>
 			<% if(currentUser && review.author.equals(currentUser._id)){ %>
-			<form
-				action="/campgrounds/<%= campground._id %>/reviews/<%= review._id %>?_method=DELETE"
-				method="POST"
+
+			<!-- Button trigger modal -->
+			<button
+				type="button"
+				class="btn btn-danger card-link"
+				data-bs-toggle="modal"
+				data-bs-target="#delete-review"
 			>
-				<button class="btn btn-sm btn-danger">Delete</button>
-			</form>
+				Delete
+			</button>
+
+			<!-- Modal -->
+			<div
+				class="modal fade"
+				id="delete-review"
+				tabindex="-1"
+				aria-labelledby="exampleModalLabel"
+				aria-hidden="true"
+			>
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h1 class="modal-title fs-5" id="exampleModalLabel">
+								Delete Review
+							</h1>
+							<button
+								type="button"
+								class="btn-close"
+								data-bs-dismiss="modal"
+								aria-label="Close"
+							></button>
+						</div>
+						<div class="modal-body">
+							Are you sure you want to delete this review?
+						</div>
+						<div class="modal-footer">
+							<button
+								type="button"
+								class="btn btn-secondary"
+								data-bs-dismiss="modal"
+							>
+								Cancel
+							</button>
+							<form
+								action="/campgrounds/<%= campground._id %>/reviews/<%= review._id %>?_method=DELETE"
+								method="POST"
+							>
+								<button class="btn btn-danger">Delete</button>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+
 			<% } %>
 		</div>
 	</div>

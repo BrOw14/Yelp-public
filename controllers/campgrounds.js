@@ -12,12 +12,6 @@ const { cloudinary } = require("../cloudinary");
 const pageSize = 3; // Cantidad de campamentos por página
 
 module.exports.index = async (req, res) => {
-	const page = req.query.page || 1; // Página solicitada
-
-	// Calcula el índice de inicio y fin para la consulta
-	const startIndex = (page - 1) * pageSize;
-	const endIndex = page * pageSize;
-
 	const totalCampgrounds = await Campground.countDocuments({});
 
 	const totalPages = Math.ceil(totalCampgrounds / pageSize);

@@ -12,10 +12,20 @@ module.exports.isLoggedIn = (req, res, next) => {
 	next();
 };
 
+let previousUrl = "";
+const ignorePaths = {
+	"/login": true,
+	"/register": true,
+	"/logout": true,
+	"/load-more": true,
+};
+
 module.exports.storeReturnTo = (req, res, next) => {
-	if (req.session.returnTo) {
-		res.locals.returnTo = req.session.returnTo;
+	if (!ignorePaths[req.originalUrl]) {
+		previousUrl = req.originalUrl;
 	}
+
+	res.locals.returnTo = previousUrl;
 	next();
 };
 
