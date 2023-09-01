@@ -151,8 +151,6 @@ app.use((req, res, next) => {
 	next();
 });
 
-app.use(storeReturnTo);
-
 app.get("/fakeUser", async (req, res) => {
 	const user = new User({
 		email: "lala@gmail.com",
@@ -165,6 +163,7 @@ app.get("/fakeUser", async (req, res) => {
 app.use("/", userRoutes);
 app.use("/campgrounds", campgroundsRoutes);
 app.use("/campgrounds/:id/reviews", reviewsRoutes);
+app.use(storeReturnTo);
 
 app.use("/", loadMore);
 
