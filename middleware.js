@@ -24,10 +24,12 @@ module.exports.storeReturnTo = (req, res, next) => {
 	// Almacena la URL previa en la sesión del usuario
 	if (!ignorePaths[req.originalUrl]) {
 		req.session.previousUrl = req.originalUrl;
+	} else {
+		req.session.previousUrl = req.session.previousUrl;
 	}
 
 	// Recupera la URL previa de la sesión del usuario
-	const previousUrl = req.session.previousUrl || "";
+	const previousUrl = req.session.previousUrl;
 
 	console.log("original path", req.originalUrl);
 	console.log("previous URL", previousUrl);
