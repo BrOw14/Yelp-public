@@ -160,12 +160,12 @@ app.get("/fakeUser", async (req, res) => {
 	res.send(newUser);
 });
 
+app.use("/", loadMore);
+app.use(storeReturnTo);
+
 app.use("/", userRoutes);
 app.use("/campgrounds", campgroundsRoutes);
 app.use("/campgrounds/:id/reviews", reviewsRoutes);
-app.use(storeReturnTo);
-
-app.use("/", loadMore);
 
 app.get("/", (req, res) => {
 	res.render("home");
