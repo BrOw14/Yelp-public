@@ -1,0 +1,27 @@
+/* Estilo para las imágenes */
+.image-thumbnail {
+	width: 200px;
+	height: 200px;
+	object-fit: cover; /* Evita la distorsión de la imagen */
+	border: 1px solid #ccc; /* Añade un borde opcional */
+}
+
+/* Estilo para el contenedor de la imagen */
+.position-relative {
+	position: relative;
+}
+
+/* Estilo para el checkbox */
+.form-check-input {
+	position: absolute;
+	top: 0; /* Ajusta la posición vertical según tus preferencias */
+	right: 0; /* Ajusta la posición horizontal según tus preferencias */
+	padding: 0.5rem;
+}
+
+.form-check {
+	position: absolute;
+	top: 0; /* Ajusta la posición vertical para alinear con la parte superior de la imagen */
+	right: 0; /* Ajusta la posición horizontal para alinear con la parte derecha de la imagen */
+	padding: 10px; /* Espacio opcional alrededor del checkbox */
+}

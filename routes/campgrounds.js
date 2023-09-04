@@ -38,4 +38,6 @@ router.get(
 	catchAsync(campgrounds.renderEditForm)
 );
 
+router.post("/:id/delete-images", catchAsync(campgrounds.deleteImages));
+
 module.exports = router;

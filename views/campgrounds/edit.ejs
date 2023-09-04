@@ -1,5 +1,6 @@
 <% layout('layouts/boilerplate') %>
 <link rel="stylesheet" href="/stylesheets/new.css" />
+<link rel="stylesheet" href="/stylesheets/edit.css" />
 <div class="row">
 	<h1 class="text-center my-5">Update Campground</h1>
 	<div class="col-md-6 offset-md-3">
@@ -13,7 +14,7 @@
 					enctype="multipart/form-data"
 				>
 					<div class="mb-3">
-						<label class="form-label" for="title">Title</label>
+						<label class="form-label text-secondary" for="title">Title</label>
 						<input
 							class="form-control"
 							type="text"
@@ -25,7 +26,9 @@
 						<div class="valid-feedback">Looks good!</div>
 					</div>
 					<div class="mb-3">
-						<label class="form-label" for="location">Location</label>
+						<label class="form-label text-secondary" for="location"
+							>Location</label
+						>
 						<input
 							class="form-control"
 							type="text"
@@ -37,7 +40,9 @@
 						<div class="valid-feedback">Looks good!</div>
 					</div>
 					<div class="mb-3">
-						<label class="form-label" for="price">Campground Price</label>
+						<label class="form-label text-secondary" for="price"
+							>Campground Price</label
+						>
 						<div class="input-group">
 							<span class="input-group-text" id="price-label">$</span>
 							<input
@@ -55,7 +60,9 @@
 						</div>
 					</div>
 					<div class="mb-3">
-						<label class="form-label" for="description">Description</label>
+						<label class="form-label text-secondary" for="description"
+							>Description</label
+						>
 						<textarea
 							class="form-control"
 							type="text"
@@ -82,26 +89,106 @@
 						</div>
 						<div class="valid-feedback">Looks good!</div>
 					</div>
-					<div class="mb-3">
-						<% campground.images.forEach((img,i)=>{ %>
-
-						<img src="<%= img.thumbnail %>" alt="" class="image-thumbnail" />
-						<div class="form-check-inline">
-							<label for="image-<%= i %>">Delete</label>
-							<input
-								type="checkbox"
-								name="deleteImages[]"
-								id="image-<%= i %>"
-								value="<%= img.filename %>"
-							/>
-						</div>
-
-						<% }) %>
-					</div>
-					<div class="mb-3">
+					<div class="mb-3 d-flex flex-column d-md-grid gap-2 col-md-6 mx-auto">
 						<button class="btn btn-info">Update Campground</button>
+						<button
+							type="button"
+							class="btn btn-danger"
+							data-bs-toggle="modal"
+							data-bs-target="#staticBackdrop"
+						>
+							Delete Images
+						</button>
 					</div>
 				</form>
+
+				<!-- Modal -->
+				<div
+					class="modal fade"
+					id="staticBackdrop"
+					data-bs-backdrop="static"
+					data-bs-keyboard="false"
+					tabindex="-1"
+					aria-labelledby="staticBackdropLabel"
+					aria-hidden="true"
+				>
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h1
+									class="modal-title fs-5 text-secondary"
+									id="staticBackdropLabel"
+								>
+									Delete Images
+								</h1>
+								<button
+									type="button"
+									class="btn-close"
+									data-bs-dismiss="modal"
+									aria-label="Close"
+								></button>
+							</div>
+
+							<form
+								action="/campgrounds/<%= campground._id %>/delete-images"
+								method="POST"
+								novalidate
+								class="delete-images-form"
+							>
+								<% if(campground.images.length){ %>
+								<div class="modal-body row px-5">
+									<% campground.images.forEach((img, i) => { %>
+									<div class="col-md-6">
+										<div class="position-relative mx-auto">
+											<label for="image-<%= i %>">
+												<img
+													src="<%= img.thumbnail %>"
+													alt=""
+													class="image-thumbnail rounded"
+												/>
+											</label>
+											<div class="form-check position-absolute top-0 end-0">
+												<input
+													type="checkbox"
+													name="deleteImages[]"
+													id="image-<%= i %>"
+													value="<%= img.filename %>"
+													class="form-check-input"
+												/>
+											</div>
+										</div>
+									</div>
+									<% }) %>
+								</div>
+								<div class="modal-footer">
+									<button
+										type="button"
+										class="btn btn-secondary"
+										data-bs-dismiss="modal"
+									>
+										Cancel
+									</button>
+									<button type="submit" class="btn btn-danger">Confirm</button>
+								</div>
+								<% } else {%>
+								<div class="modal-body">
+									<h3 class="text-dark">There is no images</h3>
+								</div>
+								<div class="modal-footer">
+									<button
+										type="button"
+										class="btn btn-secondary"
+										data-bs-dismiss="modal"
+									>
+										Accept
+									</button>
+								</div>
+								<% } %>
+							</form>
+						</div>
+					</div>
+				</div>
+
 				<a href="/campgrounds/<%= campground._id %>">Cancel</a>
 			</div>
 		</div>

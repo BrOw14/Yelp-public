@@ -40,7 +40,7 @@ module.exports.logout = (req, res, next) => {
 			return next(err);
 		}
 		req.flash("success", `Goodbye! `);
-		const redirectUrl = res.locals.returnTo || "/";
-		res.redirect(redirectUrl);
+
+		res.redirect("/");
 	});
 };
