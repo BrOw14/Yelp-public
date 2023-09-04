@@ -94,6 +94,39 @@ module.exports.editCampground = async (req, res) => {
 	res.redirect(`/campgrounds/${campground._id}`);
 };
 
+module.exports.deleteImages = async (req, res) => {
+	const { id } = req.params;
+	const camp = await Campground.findById(id);
+
+	if (!camp) {
+		req.flash("error", "Campground not found");
+		return res.redirect("/campgrounds");
+	}
+
+	const { deleteImages } = req.body;
+
+	if (deleteImages && deleteImages.length > 0) {
+		// Eliminar las imágenes seleccionadas
+		for (const filename of deleteImages) {
+			// Lógica para eliminar la imagen de tu sistema de almacenamiento (p. ej. Cloudinary)
+			// Ejemplo:
+			await cloudinary.uploader.destroy(filename);
+		}
+
+		// Actualizar el campamento para eliminar las imágenes
+		camp.images = camp.images.filter(
+			(img) => !deleteImages.includes(img.filename)
+		);
+		await camp.save();
+
+		req.flash("success", "Images deleted successfully");
+	} else {
+		req.flash("error", "No images selected for deletion");
+	}
+
+	res.redirect(`/campgrounds/${id}/edit`);
+};
+
 module.exports.deleteCampground = async (req, res) => {
 	const { id } = req.params;
 	await Campground.findByIdAndDelete(id);
